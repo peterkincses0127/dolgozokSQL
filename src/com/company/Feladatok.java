@@ -19,11 +19,11 @@ public class Feladatok {
                      ) {
                     System.out.println(d);
                 }break;
-            case 2 :
+            case 2 : Bevitel();
 
 
         }
-        System.out.println(dolgozoLista.get(0));
+
     }
 
     private ArrayList<Dolgozo> Beolvas(String kapcs) {
@@ -57,9 +57,31 @@ public class Feladatok {
             String user = "root";
             String password = "";
             Connection kapcsolat = DriverManager.getConnection(url,user,password);
-            PreparedStatement st = kapcsolat.prepareStatement("INSERT INTO DOLGOZOK(ID, NEV,KOR,FIZETES)")
-        }catch (SQLException ex){
+            PreparedStatement st = kapcsolat.prepareStatement("INSERT INTO `dolgozok`(`id`, `nev`, `nem`, `kor`, `fizetes`) VALUES  (?,?,?,?,?)");
+            String nev = "";
+            String nem = "";
+            int kor = 0;
+            int fizetes = 0;
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Név: ");
+            nev = sc.nextLine();
+            System.out.print("Nem: ");
+            nem = sc.nextLine();
+            System.out.print("Kor: ");
+            kor = sc.nextInt();
+            System.out.print("Fizetés: ");
+            fizetes = sc.nextInt();
 
+            st.setString(2,nev);
+            st.setString(3,nem);
+            st.setInt(4,kor);
+            st.setInt(5,fizetes);
+            st.execute();
+        }catch (SQLException ex){
+            ex.getMessage();
+        }
+        catch (Exception e){
+            e.getMessage();
         }
     }
 }
